@@ -2,11 +2,14 @@ package com.notify.notify.service;
 
 import com.notify.notify.model.Message;
 import com.notify.notify.model.SMS;
+import com.notify.notify.model.response.ThirdPartApiResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class SMSProcessService {
 
     @Autowired
@@ -32,7 +35,13 @@ public class SMSProcessService {
             smsCRUDService.updateSMS(integerSmsId,"401","blacklisted number");
             return;
         }
-        smsApiCallingService.call(sms);
+        ThirdPartApiResponse response = smsApiCallingService.call(sms);
+        log.info("Response from third party api: {}",response);
+        if(!response.getResponse().get(0).getCode().equals("1001"))
+        {
+            smsCRUDService.updateSMS(integerSmsId,"401","blacklisted number");
+            return;
+        }
         smsCRUDService.updateSMS(integerSmsId);
         Message message = new Message(smsId,sms.getPhoneNumber(),sms.getMessage());
         smsSearchService.indexMessage(message);

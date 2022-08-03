@@ -16,6 +16,7 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.sort.SortOrder;
 import org.elasticsearch.xcontent.XContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,6 +60,7 @@ public class SMSSearchService {
             boolQuery.filter(searchQuery);
             boolQuery.filter(dateQuery);
             SearchSourceBuilder builder = new SearchSourceBuilder().query(boolQuery);
+            builder.sort("time", SortOrder.ASC);
             SearchRequest request = new SearchRequest("messages");
             request.source(builder);
             SearchResponse response = client.search(request, RequestOptions.DEFAULT);
@@ -83,6 +85,7 @@ public class SMSSearchService {
         try {
             QueryBuilder textQuery = QueryBuilders.matchQuery("message",textSearchRequest.getText()).operator(Operator.AND);
             SearchSourceBuilder builder = new SearchSourceBuilder().query(textQuery);
+            builder.sort("time", SortOrder.ASC);
             SearchRequest request = new SearchRequest("messages");
             request.source(builder);
             SearchResponse response = client.search(request, RequestOptions.DEFAULT);
