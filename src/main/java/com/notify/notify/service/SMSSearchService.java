@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.notify.notify.model.Message;
 import com.notify.notify.model.request.TextSearchRequest;
 import com.notify.notify.model.request.TimeSearchRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
@@ -27,6 +28,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
+@Slf4j
 public class SMSSearchService {
 
     @Autowired
@@ -44,9 +46,9 @@ public class SMSSearchService {
             IndexResponse response = client.index(request, RequestOptions.DEFAULT);
             return true;
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            System.out.println(e);
+            log.error("Get following error while indexing sms in elasticsearch: {}",ex.getMessage(),ex);
             return false;
         }
     }
@@ -73,9 +75,9 @@ public class SMSSearchService {
             }
             return mssgs;
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            System.out.println(e);
+            log.error("Get following error while searching sms between a time interval in elasticsearch: {}",ex.getMessage(),ex);
             return Collections.emptyList();
         }
     }
@@ -98,9 +100,9 @@ public class SMSSearchService {
             }
             return mssgs;
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            System.out.println(e);
+            log.error("Get following error while searching sms containing a given text in elasticsearch: {}",ex.getMessage(),ex);
             return Collections.emptyList();
         }
     }

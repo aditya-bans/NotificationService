@@ -37,9 +37,9 @@ public class SMSProcessService {
         }
         ThirdPartApiResponse response = smsApiCallingService.call(sms);
         log.info("Response from third party api: {}",response);
-        if(!response.getResponse().get(0).getCode().equals("1001"))
+        if(response==null||!response.getResponse().get(0).getCode().equals("1001"))
         {
-            smsCRUDService.updateSMS(integerSmsId,"401","blacklisted number");
+            smsCRUDService.updateSMS(integerSmsId,"401","Unable to process by third party api");
             return;
         }
         smsCRUDService.updateSMS(integerSmsId);
