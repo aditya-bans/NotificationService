@@ -11,11 +11,11 @@ import org.springframework.data.elasticsearch.client.RestClients;
 import org.springframework.data.elasticsearch.config.AbstractElasticsearchConfiguration;
 
 @Configuration
-@ComponentScan(basePackages = {"com.notify.notify"})
+@ComponentScan(basePackages = {"com.notification"})
 public class ElasticSearchConfig extends AbstractElasticsearchConfiguration {
 
     @Value("${elasticsearch.url}")
-    public String elasticsearchUrl;
+    private String elasticsearchUrl;
 
     @Bean
     @Override
