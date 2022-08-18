@@ -34,9 +34,7 @@ public class BlackListServiceController {
 
 
     @DeleteMapping(EndpointsConstants.REMOVE_NUMBER_FROM_BLACKLIST_ENDPOINT)
-    public ResponseEntity remove(@PathVariable @NotBlank(message = UtilityConstants.MANDATORY_PHONENUMBER) @NotNull(message = UtilityConstants.MANDATORY_PHONENUMBER)
-                                 @Pattern(regexp = "^((\\+){1}91){1}[1-9]{1}[0-9]{9}$", message = UtilityConstants.VALID_PHONENUMBER_COMMENT)
-                                 String number) {
+    public ResponseEntity removeFromBlacklist(@PathVariable String number) {
         log.info("Request received to remove the number: {} from blacklist", number);
         blackListNumbers.remove(number);
         GenericResponse<String> response = new GenericResponse<>();

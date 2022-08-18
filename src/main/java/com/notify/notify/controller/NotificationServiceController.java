@@ -36,7 +36,7 @@ public class NotificationServiceController {
         return ResponseEntity.ok().body(response);
     }
     @GetMapping(EndpointsConstants.FETCH_SMS_BY_ID_ENDPOINT)
-    public ResponseEntity getSMSById(@PathVariable @NotBlank(message=UtilityConstants.MANDATORY_SMS_ID) @NotNull(message=UtilityConstants.MANDATORY_SMS_ID) String smsId) {
+    public ResponseEntity getSMSById(@PathVariable String smsId) {
         log.info("Request received to get sms details corresponds to smsId: {}", smsId);
         GenericResponse<Sms> response = new GenericResponse<>();
         response.setData(smsCRUDService.getSMSById(Long.parseLong(smsId)));

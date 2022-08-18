@@ -1,5 +1,6 @@
 package com.notify.notify.service;
 
+import com.notify.notify.exceptions.InValidRequestException;
 import com.notify.notify.exceptions.NotFoundException;
 import com.notify.notify.repository.SmsRepository;
 import com.notify.notify.constants.utility.UtilityConstants;
@@ -21,6 +22,7 @@ public class SmsCRUDService {
     }
 
     public Sms getSMSById(Long smsId) {
+        if(ObjectUtils.isEmpty(smsId))throw new InValidRequestException(UtilityConstants.INVALID_REQUEST_ID);
         Sms sms = smsRepository.findById(smsId).orElse(null);
         if (ObjectUtils.isEmpty(sms))
             throw new NotFoundException(UtilityConstants.REQUEST_ID_NOT_FOUND);

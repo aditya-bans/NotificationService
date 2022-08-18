@@ -52,6 +52,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
             messages.add(message.getDefaultMessage());
         });
         error.setMessages(messages);
+        response.setError(error);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 }
