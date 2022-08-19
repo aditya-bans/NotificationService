@@ -10,11 +10,11 @@
 	</parent>
 	<groupId>com.notify</groupId>
 	<artifactId>notify</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>notify</name>
 	<description>Service to send sms</description>
 	<properties>
-		<java.version>1.8.0_333</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
 
