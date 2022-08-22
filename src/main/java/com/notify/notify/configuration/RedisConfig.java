@@ -15,12 +15,14 @@ public class RedisConfig {
     private Integer portNumber;
     @Value("${redis.host-name}")
     private String hostName;
+    @Value("${redis.password}")
+    private String password;
     @Bean
     public LettuceConnectionFactory redisConnectionFactory() {
         final RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();
         config.setHostName(hostName);
         config.setPort(portNumber);
-
+        config.setPassword(password);
         return new LettuceConnectionFactory(config);
     }
 

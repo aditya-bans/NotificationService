@@ -22,6 +22,7 @@ public class ElasticSearchConfig extends AbstractElasticsearchConfiguration {
     public RestHighLevelClient elasticsearchClient() {
         final ClientConfiguration config = ClientConfiguration.builder()
                 .connectedTo(elasticsearchUrl)
+                .usingSsl()
                 .build();
 
         return RestClients.create(config).rest();
