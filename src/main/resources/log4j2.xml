@@ -1,0 +1,20 @@
+<Configuration status="info">
+    <Properties>
+        <Property name="LOG_PATTERN">
+            ${env:APPLICATION_NAME} ${hostName} %d{dd-MM-yyyy HH:mm:ss.SSS} [%t] %-5level %logger{36}
+            %X{X-B3-TraceId} [%X{X-B3-TraceId}] %msg%n
+        </Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="ConsoleAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>
